@@ -72,29 +72,28 @@
     </div>
 
     <!-- Jogo utilizado -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <h2 class="text-lg font-semibold col-span-1 md:col-span-2 mb-2">Jogo utilizado</h2>
-        <label for="timeA" class="block mb-1">Time/Evento A:</label>
-        <input type="text" id="timeA" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="Equador" />
-      </div>
-      <div>
-        <label class="block mb-1 md:mt-[36px]">&nbsp;</label> 
-        <label for="timeB" class="block mb-1">Time/Evento B:</label>
-        <input type="text" id="timeB" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="Brasil" />
-      </div>
+    <div> <!-- Container para a secção "Jogo utilizado" -->
+        <h2 class="text-lg font-semibold mb-2">Jogo utilizado</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label for="timeA" class="block mb-1">Time/Evento A:</label>
+                <input type="text" id="timeA" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="Equador" />
+            </div>
+            <div>
+                <label for="timeB" class="block mb-1">Time/Evento B:</label>
+                <input type="text" id="timeB" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="Brasil" />
+            </div>
+            <div>
+                <label for="dataJogo" class="block mb-1">Data do Jogo (DD/MM):</label>
+                <input type="text" id="dataJogo" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="05/06" />
+            </div>
+            <div>
+                <label for="horaJogo" class="block mb-1">Hora do Jogo (HH:MM):</label>
+                <input type="text" id="horaJogo" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="20:00" />
+            </div>
+        </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <label for="dataJogo" class="block mb-1">Data do Jogo (DD/MM):</label>
-        <input type="text" id="dataJogo" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="05/06" />
-      </div>
-      <div>
-        <label for="horaJogo" class="block mb-1">Hora do Jogo (HH:MM):</label>
-        <input type="text" id="horaJogo" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="20:00" />
-      </div>
-    </div>
 
     <!-- Plataformas que utilizaremos -->
     <div id="plataformasContainer" class="space-y-4">
@@ -211,7 +210,7 @@
         if (adicionarAtencaoCheckbox.checked) {
             const atencaoTxt = atencaoMensagemTextarea.value.trim();
             if (atencaoTxt) {
-                message += `\n\n⚠️ ${atencaoTxt} ⚠️`; // Formato da mensagem de atenção alterado
+                message += `\n\n⚠️ ${atencaoTxt} ⚠️`;
             }
         }
         
