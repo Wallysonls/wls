@@ -71,13 +71,15 @@
       </div>
     </div>
 
-    <!-- Detalhes do Jogo -->
+    <!-- Jogo utilizado -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
+        <h2 class="text-lg font-semibold col-span-1 md:col-span-2 mb-2">Jogo utilizado</h2>
         <label for="timeA" class="block mb-1">Time/Evento A:</label>
         <input type="text" id="timeA" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="Equador" />
       </div>
       <div>
+        <label class="block mb-1 md:mt-[36px]">&nbsp;</label> 
         <label for="timeB" class="block mb-1">Time/Evento B:</label>
         <input type="text" id="timeB" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="Brasil" />
       </div>
@@ -94,13 +96,13 @@
       </div>
     </div>
 
-    <!-- Plataformas Utilizadas -->
+    <!-- Plataformas que utilizaremos -->
     <div id="plataformasContainer" class="space-y-4">
       <div class="flex items-center justify-between">
-        <h2 class="text-lg font-semibold">Plataformas Utilizadas</h2>
+        <h2 class="text-lg font-semibold">Plataformas que utilizaremos</h2>
         <button type="button" id="addPlatformBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold">+</button>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="platformFieldsGrid"> 
         <div>
           <label for="plataformaUmNome" class="block mb-1">Nome Plataforma 1 (Ex: bet365):</label>
           <input type="text" id="plataformaUmNome" name="platform_name[]" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="bet365" />
@@ -110,7 +112,7 @@
           <input type="text" id="plataformaDoisNome" name="platform_name[]" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="brasildasorte" />
         </div>
       </div>
-      <!-- Novos campos de plataforma serão adicionados aqui -->
+      <!-- Novos campos de plataforma serão adicionados aqui pelo JS dentro do platformFieldsGrid -->
     </div>
 
 
@@ -152,7 +154,8 @@
     // Plataformas
     const plataformasContainer = document.getElementById('plataformasContainer');
     const addPlatformBtn = document.getElementById('addPlatformBtn');
-    let platformCount = 2; // Começamos com 2 plataformas
+    const platformFieldsGrid = document.getElementById('platformFieldsGrid'); // Referência ao grid de campos
+    let platformCount = 2; 
 
     const chanceDuploCheckbox = document.getElementById('chanceDuplo');
     const adicionarAtencaoCheckbox = document.getElementById('adicionarAtencao');
@@ -165,44 +168,27 @@
 
     addPlatformBtn.addEventListener('click', () => {
         platformCount++;
-        const newPlatformField = document.createElement('div');
-        // Para manter o layout em duas colunas, vamos adicionar o novo campo individualmente
-        // e ele se ajustará ao grid se houver espaço, ou criará uma nova linha.
-        // Para um controle mais preciso, seria necessário um container específico para os campos dinâmicos.
-        // Por simplicidade, vamos adicionar abaixo do grid existente por enquanto.
-
-        newPlatformField.classList.add('mt-4'); // Adiciona um pouco de espaço acima
-        newPlatformField.innerHTML = `
+        const newPlatformFieldContainer = document.createElement('div'); // Cria um container para o label e input
+        newPlatformFieldContainer.id = `plataforma${platformCount}Container`; // ID para o container
+        
+        newPlatformFieldContainer.innerHTML = `
             <label for="plataforma${platformCount}Nome" class="block mb-1">Nome Plataforma ${platformCount}:
               <button type="button" class="remove-platform-btn" data-remove-id="plataforma${platformCount}Container">X</button>
             </label>
             <input type="text" id="plataforma${platformCount}Nome" name="platform_name[]" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="" />
         `;
-        newPlatformField.id = `plataforma${platformCount}Container`;
-
-        // Encontra o último grid dentro do container de plataformas
-        const lastGrid = plataformasContainer.querySelector('.grid');
-        if (lastGrid) {
-            lastGrid.appendChild(newPlatformField); // Adiciona ao último grid
-        } else {
-            // Fallback caso não haja grid (não deveria acontecer com o HTML atual)
-            plataformasContainer.appendChild(newPlatformField);
-        }
         
-        // Adiciona event listener para o novo botão de remover
-        newPlatformField.querySelector('.remove-platform-btn').addEventListener('click', function() {
+        platformFieldsGrid.appendChild(newPlatformFieldContainer); // Adiciona o novo container ao grid
+        
+        newPlatformFieldContainer.querySelector('.remove-platform-btn').addEventListener('click', function() {
             const targetId = this.getAttribute('data-remove-id');
             const elementToRemove = document.getElementById(targetId);
             if (elementToRemove) {
                 elementToRemove.remove();
-                // Opcional: Poderíamos reajustar platformCount se necessário, mas para simples adição/remoção não é crítico.
             }
         });
     });
     
-    // Delegação de eventos para botões de remover (caso o usuário queira remover os iniciais também)
-    // Isso pode ser expandido se necessário, mas os campos iniciais não têm botão de remover.
-
     generateButton.addEventListener('click', () => {
         const numeroMetodo = numeroMetodoInput.value.trim();
         const referenteA = referenteAInput.value.trim();
@@ -225,16 +211,15 @@
         if (adicionarAtencaoCheckbox.checked) {
             const atencaoTxt = atencaoMensagemTextarea.value.trim();
             if (atencaoTxt) {
-                message += `\n\n⚠️ ATENÇÃO: ${atencaoTxt}`;
+                message += `\n\n⚠️ ${atencaoTxt} ⚠️`; // Formato da mensagem de atenção alterado
             }
         }
         
-        message += `\n\nJogo Utilizado:\n` + 
+        message += `\n\nJogo utilizado:\n` + 
                    `${timeA} x ${timeB}\n` +
                    `${dataJogo} ás ${horaJogo}\n\n` +
-                   `Plataformas utilizadas:\n`;
+                   `Plataformas que utilizaremos:\n`; 
 
-        // Coleta nomes de todas as plataformas
         const platformInputs = document.querySelectorAll('input[name="platform_name[]"]');
         platformInputs.forEach(input => {
             const platformName = input.value.trim();
@@ -243,7 +228,7 @@
             }
         });
 
-        generatedMessageTextarea.value = message.trim(); // trim() no final para remover possível linha extra
+        generatedMessageTextarea.value = message.trim(); 
         outputArea.classList.remove('hidden');
         generatedMessageTextarea.style.height = 'auto';
         generatedMessageTextarea.style.height = (generatedMessageTextarea.scrollHeight) + 'px';
