@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WLS MÉTODOS - Gerador de Mensagens</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link da fonte Montserrat do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            /* Aplicando a fonte Montserrat */
+            font-family: 'Montserrat', sans-serif;
+        }
+        .input-label { /* Estilo base para todos os labels */
+            @apply block text-sm font-medium text-gray-300 mb-1;
+        }
+        .input-label-bold { /* Labels que devem ser em negrito */
+            @apply font-bold text-gray-100; 
+        }
+        .input-label-italic { /* Labels que devem ser em itálico e mais visíveis */
+            @apply italic text-sky-400; 
+        }
+        .input-field { /* Estilo padrão para TODOS os campos de input (tema escuro com texto preto) */
+            @apply mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm text-black placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm;
+        }
+        .checkbox-label {
+            @apply ml-2 text-sm text-gray-300;
+        }
+        .btn {
+            @apply inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800;
+        }
+        .btn-primary { /* Botão Gerar Mensagem */
+            @apply bg-orange-500 hover:bg-orange-600 text-white focus:ring-orange-400;
+        }
+        .btn-secondary { /* Botão Copiar Mensagem */
+            @apply bg-green-500 hover:bg-green-600 text-white focus:ring-green-400;
+        }
+        #copyNotification {
+            transition: opacity 0.5s ease-out;
+        }
+        .section-title { /* Títulos das seções como "Detalhes do Método" */
+            @apply text-xl font-semibold text-orange-400 border-b border-gray-700 pb-2 mb-4;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 min-h-screen flex flex-col items-center justify-center p-4 text-gray-200">
+
+    <div class="bg-gray-800 p-6 sm:p-8 rounded-lg shadow-2xl w-full max-w-2xl">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl sm:text-4xl font-bold text-orange-500">WLS MÉTODOS</h1>
+            <p class="text-gray-400 mt-2">Preencha os campos abaixo para gerar sua mensagem personalizada.</p>
+        </header>
+
+        <form id="messageForm" class="space-y-6">
+            <!-- Seção do Método -->
+            <div>
+                <h2 class="section-title">Detalhes do Método</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="referenteA" class="input-label input-label-bold">Referente a:</label>
+                        <input type="text" id="referenteA" name="referenteA" class="input-field" value="SUPER ODD AUMENTADA">
+                    </div>
+                    <div>
+                        <label for="plataformaMetodo" class="input-label input-label-bold">Plataforma do Método:</label>
+                        <input type="text" id="plataformaMetodo" name="plataformaMetodo" class="input-field" value="BET365">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção Financeira -->
+            <div>
+                <h2 class="section-title">Valores</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="investimentoValor" class="input-label input-label-bold">Investimento (R$):</label>
+                        <input type="text" id="investimentoValor" name="investimentoValor" class="input-field" value="126,00" placeholder="Ex: 100,00">
+                    </div>
+                    <div>
+                        <label for="lucroValor" class="input-label input-label-bold">Lucro (R$):</label>
+                        <input type="text" id="lucroValor" name="lucroValor" class="input-field" value="14,00" placeholder="Ex: 25,50">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Opções Adicionais -->
+            <div>
+                <h2 class="section-title">Opções Adicionais</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <input id="chanceDuplo" name="chanceDuplo" type="checkbox" class="h-4 w-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500">
+                        <label for="chanceDuplo" class="checkbox-label">Chance de Duplo pros dois lados 🤩</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="adicionarAtencao" name="adicionarAtencao" type="checkbox" class="h-4 w-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500">
+                        <label for="adicionarAtencao" class="checkbox-label">Adicionar mensagem de Atenção</label>
+                    </div>
+                    <div id="atencaoMensagemContainer" class="hidden mt-2">
+                        <label for="atencaoMensagem" class="input-label">Mensagem de Atenção:</label>
+                        <textarea id="atencaoMensagem" name="atencaoMensagem" rows="2" class="input-field" placeholder="Digite sua mensagem de atenção aqui..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção do Jogo -->
+            <div>
+                <h2 class="section-title">Detalhes do Jogo</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4"> 
+                    <div>
+                        <label for="timeA" class="input-label input-label-bold">Time/Evento A:</label>
+                        <input type="text" id="timeA" name="timeA" class="input-field" value="Equador">
+                    </div>
+                    <div>
+                        <label for="timeB" class="input-label input-label-italic">Time/Evento B:</label>
+                        <input type="text" id="timeB" name="timeB" class="input-field" value="Brasil"> 
+                    </div>
+                    <div>
+                        <label for="dataJogo" class="input-label input-label-italic">Data do Jogo (DD/MM):</label>
+                        <input type="text" id="dataJogo" name="dataJogo" class="input-field" value="05/06" placeholder="Ex: 15/07"> 
+                    </div>
+                    <div>
+                        <label for="horaJogo" class="input-label input-label-italic">Hora do Jogo (HH:MM):</label>
+                        <input type="text" id="horaJogo" name="horaJogo" class="input-field" value="20:00" placeholder="Ex: 21:30"> 
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção das Plataformas -->
+            <div>
+                <h2 class="section-title">Plataformas Utilizadas</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="plataformaUmNome" class="input-label input-label-italic">Nome Plataforma 1 (Ex: bet365):</label>
+                        <input type="text" id="plataformaUmNome" name="plataformaUmNome" class="input-field" value="bet365"> 
+                    </div>
+                    <div>
+                        <label for="plataformaDoisNome" class="input-label input-label-italic">Nome Plataforma 2 (Ex: brasildasorte):</label>
+                        <input type="text" id="plataformaDoisNome" name="plataformaDoisNome" class="input-field" value="brasildasorte"> 
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão de Gerar -->
+             <div class="pt-4 text-center">
+                <button type="button" id="generateButton" class="btn btn-primary w-full sm:w-auto">
+                    Gerar Mensagem
+                </button>
+            </div>
+        </form>
+
+        <!-- Área da Mensagem Gerada -->
+        <div id="outputArea" class="mt-8 hidden">
+            <h2 class="text-xl font-semibold text-orange-400 mb-3">Mensagem Gerada:</h2>
+            <textarea id="generatedMessage" rows="12" class="input-field w-full p-3 bg-gray-700 text-gray-200 text-sm" readonly></textarea>
+            <div class="mt-4 flex flex-col sm:flex-row justify-center sm:justify-end items-center space-y-2 sm:space-y-0 sm:space-x-3">
+                <button type="button" id="copyButton" class="btn btn-secondary w-full sm:w-auto">
+                    Copiar Mensagem
+                </button>
+                <span id="copyNotification" class="text-green-400 font-medium opacity-0">Copiado!</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Elementos do DOM
+        const generateButton = document.getElementById('generateButton');
+        const copyButton = document.getElementById('copyButton');
+        const generatedMessageTextarea = document.getElementById('generatedMessage');
+        const outputArea = document.getElementById('outputArea');
+        const copyNotification = document.getElementById('copyNotification');
+
+        // Inputs
+        const referenteAInput = document.getElementById('referenteA');
+        const plataformaMetodoInput = document.getElementById('plataformaMetodo');
+        const investimentoValorInput = document.getElementById('investimentoValor');
+        const lucroValorInput = document.getElementById('lucroValor');
+        const timeAInput = document.getElementById('timeA');
+        const timeBInput = document.getElementById('timeB');
+        const dataJogoInput = document.getElementById('dataJogo');
+        const horaJogoInput = document.getElementById('horaJogo');
+        const plataformaUmNomeInput = document.getElementById('plataformaUmNome');
+        const plataformaDoisNomeInput = document.getElementById('plataformaDoisNome');
+
+        // Opções Adicionais
+        const chanceDuploCheckbox = document.getElementById('chanceDuplo');
+        const adicionarAtencaoCheckbox = document.getElementById('adicionarAtencao');
+        const atencaoMensagemContainer = document.getElementById('atencaoMensagemContainer');
+        const atencaoMensagemTextarea = document.getElementById('atencaoMensagem');
+
+        // Event listener para mostrar/esconder campo de mensagem de atenção
+        adicionarAtencaoCheckbox.addEventListener('change', () => {
+            if (adicionarAtencaoCheckbox.checked) {
+                atencaoMensagemContainer.classList.remove('hidden');
+            } else {
+                atencaoMensagemContainer.classList.add('hidden');
+            }
+        });
+
+        // Event listener para o botão de gerar
+        generateButton.addEventListener('click', () => {
+            // Pega os valores dos inputs
+            const referenteA = referenteAInput.value.trim();
+            const plataformaMetodo = plataformaMetodoInput.value.trim();
+            const investimentoValor = investimentoValorInput.value.trim();
+            const lucroValor = lucroValorInput.value.trim();
+            const timeA = timeAInput.value.trim();
+            const timeB = timeBInput.value.trim();
+            const dataJogo = dataJogoInput.value.trim();
+            const horaJogo = horaJogoInput.value.trim();
+            const plataformaUmNome = plataformaUmNomeInput.value.trim();
+            const plataformaDoisNome = plataformaDoisNomeInput.value.trim();
+
+            // Monta a mensagem base
+            let message = `MÉTODO 022 - Referente a ${referenteA} - ${plataformaMetodo}\n\n` +
+                            `💵 Investimento: R$ ${investimentoValor}\n` +
+                            `💵 Lucro: R$ ${lucroValor}`; // Removida a quebra de linha dupla aqui por enquanto
+
+            // Adiciona mensagem de Chance de Duplo se o checkbox estiver marcado
+            if (chanceDuploCheckbox.checked) {
+                message += `\n\nCHANCE DE DUPLO PROS DOIS LADOS 🤩`;
+            }
+
+            // Adiciona mensagem de Atenção se o checkbox estiver marcado e houver texto
+            if (adicionarAtencaoCheckbox.checked) {
+                const atencaoTxt = atencaoMensagemTextarea.value.trim();
+                if (atencaoTxt) {
+                    message += `\n\n⚠️ ATENÇÃO: ${atencaoTxt}`;
+                }
+            }
+            
+            // Adiciona o restante da mensagem (Jogo e Plataformas)
+            message += `\n\nJogo Utilizado:\n` + // Adicionada quebra de linha dupla aqui para separar das mensagens opcionais
+                       `${timeA} x ${timeB}\n` +
+                       `${dataJogo} ás ${horaJogo}\n\n` +
+                       `Plataformas utilizadas:\n` +
+                       `${plataformaUmNome}.bet.br\n` +
+                       `${plataformaDoisNome}.bet.br`;
+
+            // Exibe a mensagem na textarea e mostra a área de output
+            generatedMessageTextarea.value = message;
+            generatedMessageTextarea.style.height = 'auto'; // Redefine a altura
+            generatedMessageTextarea.style.height = (generatedMessageTextarea.scrollHeight) + 'px'; // Ajusta a altura ao conteúdo
+            outputArea.classList.remove('hidden');
+            outputArea.classList.add('block');
+            generatedMessageTextarea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        // Event listener para o botão de copiar
+        copyButton.addEventListener('click', () => {
+            generatedMessageTextarea.select();
+            generatedMessageTextarea.setSelectionRange(0, 99999); // Para mobile
+
+            try {
+                navigator.clipboard.writeText(generatedMessageTextarea.value)
+                    .then(() => {
+                        showCopyNotification();
+                    })
+                    .catch(err => {
+                        console.warn('Falha ao copiar com navigator.clipboard, tentando fallback: ', err);
+                        fallbackCopyTextToClipboard(generatedMessageTextarea.value);
+                    });
+            } catch (err) {
+                console.warn('navigator.clipboard não disponível, usando fallback: ', err);
+                fallbackCopyTextToClipboard(generatedMessageTextarea.value);
+            }
+        });
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+            textArea.style.opacity = "0";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showCopyNotification();
+                } else {
+                    console.error('Fallback: Falha ao copiar texto');
+                }
+            } catch (err) {
+                console.error('Fallback: Erro ao copiar texto', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showCopyNotification() {
+            copyNotification.classList.remove('opacity-0');
+            copyNotification.classList.add('opacity-100');
+            setTimeout(() => {
+                copyNotification.classList.remove('opacity-100');
+                copyNotification.classList.add('opacity-0');
+            }, 2000); 
+        }
+    </script>
+</body>
+</html>
