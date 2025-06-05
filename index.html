@@ -5,128 +5,159 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>WLS MÉTODOS - GERADOR DE MENSAGENS</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    .remove-platform-btn {
-      /* Estilo para o botão de remover plataforma */
-      background-color: #ef4444; /* red-500 */
-      color: white;
-      padding: 0.125rem 0.375rem; /* px-1.5 py-0.5 */
-      font-size: 0.75rem; /* text-xs */
-      border-radius: 0.25rem; /* rounded */
-      margin-left: 0.5rem; /* ml-2 */
-      cursor: pointer;
-      line-height: 1;
+    body {
+      font-family: 'Montserrat', sans-serif;
     }
-    .remove-platform-btn:hover {
-      background-color: #dc2626; /* red-600 */
+    .form-section {
+      background-color: rgba(45, 45, 45, 0.7); 
+      @apply p-5 rounded-xl shadow-lg;
+    }
+    .form-input {
+      background-color: rgba(30, 30, 30, 0.8); 
+      @apply w-full text-neutral-200 border border-neutral-700 px-3 py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 placeholder-neutral-500;
+    }
+    .form-label {
+      @apply block text-sm font-medium text-neutral-300 mb-1.5;
+    }
+    .title-main {
+      @apply text-3xl font-bold text-neutral-100 mb-8 text-center;
+    }
+    .title-section {
+      @apply text-xl font-semibold text-sky-400 mb-4;
+    }
+    .btn-primary-action {
+      @apply bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-3 rounded-lg shadow-md transition-transform transform hover:scale-105 text-base;
+    }
+    .btn-secondary-action {
+      @apply bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-2.5 rounded-lg shadow-sm text-sm transition-transform transform hover:scale-105;
+    }
+    .btn-add {
+      @apply bg-sky-500 hover:bg-sky-600 text-white font-bold px-3.5 py-1.5 rounded-lg text-sm shadow-sm;
+    }
+    .btn-remove {
+      @apply bg-red-600 hover:bg-red-700 text-white px-2.5 py-1 text-xs rounded-md shadow-sm;
+    }
+    .checkbox-label {
+        @apply flex items-center text-neutral-300 text-sm;
+    }
+    .checkbox-input {
+        @apply mr-2.5 h-4 w-4 rounded border-neutral-600 bg-neutral-700 text-orange-500 focus:ring-orange-500 focus:ring-offset-neutral-800;
     }
   </style>
 </head>
-<body class="bg-gray-900 text-white p-6">
-  <div class="max-w-3xl mx-auto space-y-6">
+<body class="bg-gradient-to-b from-slate-900 to-black text-neutral-200 p-4 sm:p-6 min-h-screen flex items-center justify-center">
+  <div class="max-w-2xl w-full mx-auto space-y-6">
 
-    <h1 class="text-2xl font-bold mb-4">WLS MÉTODOS</h1>
+    <h1 class="title-main">WLS MÉTODOS</h1>
 
     <!-- Detalhes do Método -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4"> 
-      <div>
-        <label for="numeroMetodo" class="block mb-1">Número do Método:</label>
-        <input type="text" id="numeroMetodo" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="022" />
+    <section class="form-section">
+      <h2 class="title-section">Detalhes do Método</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-3"> 
+        <div>
+          <label for="numeroMetodo" class="form-label">Número do Método:</label>
+          <input type="text" id="numeroMetodo" class="form-input" value="022" />
+        </div>
+        <div>
+          <label for="referenteA" class="form-label">Referente a:</label>
+          <input type="text" id="referenteA" class="form-input" value="SUPER ODD AUMENTADA" />
+        </div>
+        <div>
+          <label for="plataformaMetodo" class="form-label">Plataforma do Método:</label>
+          <input type="text" id="plataformaMetodo" class="form-input" value="BET365" />
+        </div>
       </div>
-      <div>
-        <label for="referenteA" class="block mb-1">Referente a:</label>
-        <input type="text" id="referenteA" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="SUPER ODD AUMENTADA" />
-      </div>
-      <div>
-        <label for="plataformaMetodo" class="block mb-1">Plataforma do Método:</label>
-        <input type="text" id="plataformaMetodo" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="BET365" />
-      </div>
-    </div>
+    </section>
 
     <!-- Valores -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <label for="investimentoValor" class="block mb-1">Investimento (R$):</label>
-        <input type="text" id="investimentoValor" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="26,00" />
+    <section class="form-section">
+      <h2 class="title-section">Valores</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
+        <div>
+          <label for="investimentoValor" class="form-label">Investimento (R$):</label>
+          <input type="text" id="investimentoValor" class="form-input" value="26,00" />
+        </div>
+        <div>
+          <label for="lucroValor" class="form-label">Lucro (R$):</label>
+          <input type="text" id="lucroValor" class="form-input" value="14,00" />
+        </div>
       </div>
-      <div>
-        <label for="lucroValor" class="block mb-1">Lucro (R$):</label>
-        <input type="text" id="lucroValor" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="14,00" />
-      </div>
-    </div>
+    </section>
 
     <!-- Opções -->
-    <div>
-      <label class="block">
-        <input type="checkbox" id="chanceDuplo" class="mr-2" />
-        Chance de Duplo pros dois lados 😍
-      </label>
-      <label class="block mt-2">
-        <input type="checkbox" id="adicionarAtencao" class="mr-2" />
-        Adicionar mensagem de Atenção
-      </label>
-      <div id="atencaoMensagemContainer" class="hidden mt-2">
-          <label for="atencaoMensagem" class="block mb-1">Mensagem de Atenção:</label>
-          <textarea id="atencaoMensagem" rows="2" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite sua mensagem de atenção aqui..."></textarea>
-      </div>
-    </div>
+    <section class="form-section">
+        <h2 class="title-section">Opções Adicionais</h2>
+        <div class="space-y-3">
+            <label class="checkbox-label">
+                <input type="checkbox" id="chanceDuplo" class="checkbox-input" />
+                Chance de Duplo pros dois lados 😍
+            </label>
+            <label class="checkbox-label">
+                <input type="checkbox" id="adicionarAtencao" class="checkbox-input" />
+                Adicionar mensagem de Atenção
+            </label>
+            <div id="atencaoMensagemContainer" class="hidden pt-2">
+                <label for="atencaoMensagem" class="form-label">Mensagem de Atenção:</label>
+                <textarea id="atencaoMensagem" rows="2" class="form-input" placeholder="Digite sua mensagem de atenção aqui..."></textarea>
+            </div>
+        </div>
+    </section>
 
     <!-- Jogo utilizado -->
-    <div> <!-- Container para a secção "Jogo utilizado" -->
-        <h2 class="text-lg font-semibold mb-2">Jogo utilizado</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <section class="form-section"> 
+        <h2 class="title-section">Jogo utilizado</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
             <div>
-                <label for="timeA" class="block mb-1">Time/Evento A:</label>
-                <input type="text" id="timeA" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="Equador" />
+                <label for="timeA" class="form-label">Time/Evento A:</label>
+                <input type="text" id="timeA" class="form-input" value="Equador" />
             </div>
             <div>
-                <label for="timeB" class="block mb-1">Time/Evento B:</label>
-                <input type="text" id="timeB" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="Brasil" />
+                <label for="timeB" class="form-label">Time/Evento B:</label>
+                <input type="text" id="timeB" class="form-input" value="Brasil" />
             </div>
             <div>
-                <label for="dataJogo" class="block mb-1">Data do Jogo (DD/MM):</label>
-                <input type="text" id="dataJogo" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="05/06" />
+                <label for="dataJogo" class="form-label">Data do Jogo (DD/MM):</label>
+                <input type="text" id="dataJogo" class="form-input" value="05/06" />
             </div>
             <div>
-                <label for="horaJogo" class="block mb-1">Hora do Jogo (HH:MM):</label>
-                <input type="text" id="horaJogo" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="20:00" />
+                <label for="horaJogo" class="form-label">Hora do Jogo (HH:MM):</label>
+                <input type="text" id="horaJogo" class="form-input" value="20:00" />
             </div>
         </div>
-    </div>
-
+    </section>
 
     <!-- Plataformas que utilizaremos -->
-    <div id="plataformasContainer" class="space-y-4">
-      <div class="flex items-center justify-between">
-        <h2 class="text-lg font-semibold">Plataformas que utilizaremos</h2>
-        <button type="button" id="addPlatformBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold">+</button>
+    <section class="form-section" id="plataformasContainer">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="title-section !mb-0">Plataformas que utilizaremos</h2>
+        <button type="button" id="addPlatformBtn" class="btn-add">+</button>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="platformFieldsGrid"> 
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3" id="platformFieldsGrid"> 
         <div>
-          <label for="plataformaUmNome" class="block mb-1">Nome Plataforma 1 (Ex: bet365):</label>
-          <input type="text" id="plataformaUmNome" name="platform_name[]" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="bet365" />
+          <label for="plataformaUmNome" class="form-label">Nome Plataforma 1 (Ex: bet365):</label>
+          <input type="text" id="plataformaUmNome" name="platform_name[]" class="form-input" value="bet365" />
         </div>
         <div>
-          <label for="plataformaDoisNome" class="block mb-1">Nome Plataforma 2 (Ex: brasildasorte):</label>
-          <input type="text" id="plataformaDoisNome" name="platform_name[]" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="brasildasorte" />
+          <label for="plataformaDoisNome" class="form-label">Nome Plataforma 2 (Ex: brasildasorte):</label>
+          <input type="text" id="plataformaDoisNome" name="platform_name[]" class="form-input" value="brasildasorte" />
         </div>
       </div>
-      <!-- Novos campos de plataforma serão adicionados aqui pelo JS dentro do platformFieldsGrid -->
-    </div>
-
+    </section>
 
     <!-- Botão -->
-    <div class="mt-6">
-      <button id="generateButton" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white font-bold">Gerar Mensagem</button>
+    <div class="mt-8 text-center">
+      <button id="generateButton" class="btn-primary-action">Gerar Mensagem</button>
     </div>
 
     <!-- Mensagem Gerada -->
-    <div id="outputArea" class="mt-6 hidden">
-      <h2 class="text-xl font-semibold text-orange-400 mb-2">Mensagem Gerada:</h2>
-      <textarea id="generatedMessage" rows="10" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded" readonly></textarea>
-       <div class="mt-4 flex justify-end">
-          <button id="copyButton" class="bg-green-600 hover:bg-green-700 px-3 py-1 rounded text-white text-sm">Copiar</button>
-          <span id="copyNotification" class="text-green-400 ml-2 opacity-0">Copiado!</span>
+    <div id="outputArea" class="mt-8 hidden form-section !bg-neutral-900"> 
+      <h2 class="text-xl font-semibold text-orange-400 mb-3 text-center">Mensagem Gerada:</h2>
+      <textarea id="generatedMessage" rows="10" class="w-full bg-neutral-800 text-neutral-200 border border-neutral-700 px-3 py-2.5 rounded-lg" readonly></textarea>
+       <div class="mt-4 flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-3">
+          <span id="copyNotification" class="text-emerald-400 text-sm opacity-0 transition-opacity duration-300 order-first sm:order-last">Copiado! ✔️</span>
+          <button id="copyButton" class="btn-secondary-action w-full sm:w-auto">Copiar Mensagem</button>
       </div>
     </div>
   </div>
@@ -153,7 +184,7 @@
     // Plataformas
     const plataformasContainer = document.getElementById('plataformasContainer');
     const addPlatformBtn = document.getElementById('addPlatformBtn');
-    const platformFieldsGrid = document.getElementById('platformFieldsGrid'); // Referência ao grid de campos
+    const platformFieldsGrid = document.getElementById('platformFieldsGrid'); 
     let platformCount = 2; 
 
     const chanceDuploCheckbox = document.getElementById('chanceDuplo');
@@ -167,19 +198,20 @@
 
     addPlatformBtn.addEventListener('click', () => {
         platformCount++;
-        const newPlatformFieldContainer = document.createElement('div'); // Cria um container para o label e input
-        newPlatformFieldContainer.id = `plataforma${platformCount}Container`; // ID para o container
+        const newPlatformFieldContainer = document.createElement('div'); 
+        newPlatformFieldContainer.id = `plataforma${platformCount}Container`;
         
         newPlatformFieldContainer.innerHTML = `
-            <label for="plataforma${platformCount}Nome" class="block mb-1">Nome Plataforma ${platformCount}:
-              <button type="button" class="remove-platform-btn" data-remove-id="plataforma${platformCount}Container">X</button>
-            </label>
-            <input type="text" id="plataforma${platformCount}Nome" name="platform_name[]" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="" />
+            <label for="plataforma${platformCount}Nome" class="form-label">Nome Plataforma ${platformCount}:</label>
+            <div class="flex items-center">
+                <input type="text" id="plataforma${platformCount}Nome" name="platform_name[]" class="form-input" value="" />
+                <button type="button" class="btn-remove ml-2" data-remove-id="plataforma${platformCount}Container">X</button>
+            </div>
         `;
         
-        platformFieldsGrid.appendChild(newPlatformFieldContainer); // Adiciona o novo container ao grid
+        platformFieldsGrid.appendChild(newPlatformFieldContainer); 
         
-        newPlatformFieldContainer.querySelector('.remove-platform-btn').addEventListener('click', function() {
+        newPlatformFieldContainer.querySelector('.btn-remove').addEventListener('click', function() {
             const targetId = this.getAttribute('data-remove-id');
             const elementToRemove = document.getElementById(targetId);
             if (elementToRemove) {
@@ -199,25 +231,23 @@
         const dataJogo = dataJogoInput.value.trim();
         const horaJogo = horaJogoInput.value.trim();
         
+        // Emojis restaurados nas strings JS
         let message = `MÉTODO ${numeroMetodo} - Referente a ${referenteA} - ${plataformaMetodo}\n\n` +
-                      `💵 Investimento: R$ ${investimentoValor}\n` +
+                      `💵 Investimento: R$ ${investimentoValor}\n` + 
                       `🤑 Lucro: R$ ${lucroValor}`; 
 
         if (chanceDuploCheckbox.checked) {
-            message += `\n\nCHANCE DE DUPLO PROS DOIS LADOS 😍`;
+            message += `\n\nCHANCE DE DUPLO PROS DOIS LADOS 😍`; 
         }
 
         if (adicionarAtencaoCheckbox.checked) {
             const atencaoTxt = atencaoMensagemTextarea.value.trim();
             if (atencaoTxt) {
-                message += `\n\n⚠️ ${atencaoTxt} ⚠️`;
+                message += `\n\n⚠️ ${atencaoTxt} ⚠️`; 
             }
         }
         
-        message += `\n\nJogo utilizado:\n` + 
-                   `${timeA} x ${timeB}\n` +
-                   `${dataJogo} ás ${horaJogo}\n\n` +
-                   `Plataformas que utilizaremos:\n`; 
+        message += `\n\nJogo utilizado:\n${timeA} x ${timeB}\n${dataJogo} ás ${horaJogo}\n\nPlataformas que utilizaremos:\n`; 
 
         const platformInputs = document.querySelectorAll('input[name="platform_name[]"]');
         platformInputs.forEach(input => {
@@ -242,7 +272,7 @@
                 copyNotification.classList.remove('opacity-0');
                 setTimeout(() => copyNotification.classList.add('opacity-0'), 2000);
             } else {
-                console.error('Fallback: Falha ao copiar texto com document.execCommand.');
+                console.error('Falha ao copiar texto com document.execCommand.');
             }
         } catch (err) {
             console.error('Erro ao tentar copiar com document.execCommand:', err);
