@@ -12,7 +12,11 @@
     <h1 class="text-2xl font-bold mb-4">WLS MÉTODOS</h1>
 
     <!-- Detalhes do Método -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4"> 
+      <div>
+        <label for="numeroMetodo" class="block mb-1">Número do Método:</label>
+        <input type="text" id="numeroMetodo" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="022" />
+      </div>
       <div>
         <label for="referenteA" class="block mb-1">Referente a:</label>
         <input type="text" id="referenteA" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="SUPER ODD AUMENTADA" />
@@ -27,11 +31,11 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
         <label for="investimentoValor" class="block mb-1">Investimento (R$):</label>
-        <input type="text" id="investimentoValor" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="26,00" /> <!-- Alterado para type="text" para aceitar vírgula -->
+        <input type="text" id="investimentoValor" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="26,00" />
       </div>
       <div>
         <label for="lucroValor" class="block mb-1">Lucro (R$):</label>
-        <input type="text" id="lucroValor" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="14,00" /> <!-- Alterado para type="text" para aceitar vírgula -->
+        <input type="text" id="lucroValor" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="14,00" />
       </div>
     </div>
 
@@ -92,7 +96,7 @@
     </div>
 
     <!-- Mensagem Gerada -->
-    <div id="outputArea" class="mt-6 hidden"> <!-- Adicionado ID e hidden -->
+    <div id="outputArea" class="mt-6 hidden">
       <h2 class="text-xl font-semibold text-orange-400 mb-2">Mensagem Gerada:</h2>
       <textarea id="generatedMessage" rows="10" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded" readonly></textarea>
        <div class="mt-4 flex justify-end">
@@ -110,7 +114,8 @@
     const outputArea = document.getElementById('outputArea');
     const copyNotification = document.getElementById('copyNotification');
 
-    // Inputs (exemplos, adicione todos os IDs)
+    // Inputs
+    const numeroMetodoInput = document.getElementById('numeroMetodo'); // Novo input
     const referenteAInput = document.getElementById('referenteA');
     const plataformaMetodoInput = document.getElementById('plataformaMetodo');
     const investimentoValorInput = document.getElementById('investimentoValor');
@@ -132,6 +137,7 @@
     });
 
     generateButton.addEventListener('click', () => {
+        const numeroMetodo = numeroMetodoInput.value.trim(); // Pega o valor do novo input
         const referenteA = referenteAInput.value.trim();
         const plataformaMetodo = plataformaMetodoInput.value.trim();
         const investimentoValor = investimentoValorInput.value.trim();
@@ -143,9 +149,10 @@
         const plataformaUmNome = plataformaUmNomeInput.value.trim();
         const plataformaDoisNome = plataformaDoisNomeInput.value.trim();
 
-        let message = `MÉTODO 022 - Referente a ${referenteA} - ${plataformaMetodo}\n\n` +
+        // Inclui o número do método na mensagem
+        let message = `MÉTODO ${numeroMetodo} - Referente a ${referenteA} - ${plataformaMetodo}\n\n` +
                       `💵 Investimento: R$ ${investimentoValor}\n` +
-                      `💵 Lucro: R$ ${lucroValor}`;
+                      `🤑 Lucro: R$ ${lucroValor}`; // Emoji do Lucro alterado
 
         if (chanceDuploCheckbox.checked) {
             message += `\n\nCHANCE DE DUPLO PROS DOIS LADOS 😍`;
@@ -162,8 +169,8 @@
                    `${timeA} x ${timeB}\n` +
                    `${dataJogo} ás ${horaJogo}\n\n` +
                    `Plataformas utilizadas:\n` +
-                   `${plataformaUmNome}.bet.br\n` + // Assumindo .bet.br, ajuste se necessário
-                   `${plataformaDoisNome}.bet.br`; // Assumindo .bet.br, ajuste se necessário
+                   `${plataformaUmNome}.bet.br\n` +
+                   `${plataformaDoisNome}.bet.br`;
 
         generatedMessageTextarea.value = message;
         outputArea.classList.remove('hidden');
@@ -180,10 +187,10 @@
                 copyNotification.classList.remove('opacity-0');
                 setTimeout(() => copyNotification.classList.add('opacity-0'), 2000);
             } else {
-                alert('Falha ao copiar. Copie manualmente.');
+                console.error('Fallback: Falha ao copiar texto com document.execCommand.');
             }
         } catch (err) {
-            alert('Falha ao copiar. Copie manualmente.');
+            console.error('Erro ao tentar copiar com document.execCommand:', err);
         }
     });
   </script>
