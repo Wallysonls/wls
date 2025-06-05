@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>WLS MÉTODOS - GERADOR DE MENSAGENS</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .remove-platform-btn {
+      /* Estilo para o botão de remover plataforma */
+      background-color: #ef4444; /* red-500 */
+      color: white;
+      padding: 0.125rem 0.375rem; /* px-1.5 py-0.5 */
+      font-size: 0.75rem; /* text-xs */
+      border-radius: 0.25rem; /* rounded */
+      margin-left: 0.5rem; /* ml-2 */
+      cursor: pointer;
+      line-height: 1;
+    }
+    .remove-platform-btn:hover {
+      background-color: #dc2626; /* red-600 */
+    }
+  </style>
 </head>
 <body class="bg-gray-900 text-white p-6">
   <div class="max-w-3xl mx-auto space-y-6">
@@ -79,16 +95,24 @@
     </div>
 
     <!-- Plataformas Utilizadas -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <label for="plataformaUmNome" class="block mb-1">Nome Plataforma 1 (Ex: bet365):</label>
-        <input type="text" id="plataformaUmNome" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="bet365" />
+    <div id="plataformasContainer" class="space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-semibold">Plataformas Utilizadas</h2>
+        <button type="button" id="addPlatformBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold">+</button>
       </div>
-      <div>
-        <label for="plataformaDoisNome" class="block mb-1">Nome Plataforma 2 (Ex: brasildasorte):</label>
-        <input type="text" id="plataformaDoisNome" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="brasildasorte" />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label for="plataformaUmNome" class="block mb-1">Nome Plataforma 1 (Ex: bet365):</label>
+          <input type="text" id="plataformaUmNome" name="platform_name[]" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="bet365" />
+        </div>
+        <div>
+          <label for="plataformaDoisNome" class="block mb-1">Nome Plataforma 2 (Ex: brasildasorte):</label>
+          <input type="text" id="plataformaDoisNome" name="platform_name[]" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="brasildasorte" />
+        </div>
       </div>
+      <!-- Novos campos de plataforma serão adicionados aqui -->
     </div>
+
 
     <!-- Botão -->
     <div class="mt-6">
@@ -115,7 +139,7 @@
     const copyNotification = document.getElementById('copyNotification');
 
     // Inputs
-    const numeroMetodoInput = document.getElementById('numeroMetodo'); // Novo input
+    const numeroMetodoInput = document.getElementById('numeroMetodo');
     const referenteAInput = document.getElementById('referenteA');
     const plataformaMetodoInput = document.getElementById('plataformaMetodo');
     const investimentoValorInput = document.getElementById('investimentoValor');
@@ -124,8 +148,11 @@
     const timeBInput = document.getElementById('timeB');
     const dataJogoInput = document.getElementById('dataJogo');
     const horaJogoInput = document.getElementById('horaJogo');
-    const plataformaUmNomeInput = document.getElementById('plataformaUmNome');
-    const plataformaDoisNomeInput = document.getElementById('plataformaDoisNome');
+    
+    // Plataformas
+    const plataformasContainer = document.getElementById('plataformasContainer');
+    const addPlatformBtn = document.getElementById('addPlatformBtn');
+    let platformCount = 2; // Começamos com 2 plataformas
 
     const chanceDuploCheckbox = document.getElementById('chanceDuplo');
     const adicionarAtencaoCheckbox = document.getElementById('adicionarAtencao');
@@ -136,8 +163,48 @@
         atencaoMensagemContainer.classList.toggle('hidden', !adicionarAtencaoCheckbox.checked);
     });
 
+    addPlatformBtn.addEventListener('click', () => {
+        platformCount++;
+        const newPlatformField = document.createElement('div');
+        // Para manter o layout em duas colunas, vamos adicionar o novo campo individualmente
+        // e ele se ajustará ao grid se houver espaço, ou criará uma nova linha.
+        // Para um controle mais preciso, seria necessário um container específico para os campos dinâmicos.
+        // Por simplicidade, vamos adicionar abaixo do grid existente por enquanto.
+
+        newPlatformField.classList.add('mt-4'); // Adiciona um pouco de espaço acima
+        newPlatformField.innerHTML = `
+            <label for="plataforma${platformCount}Nome" class="block mb-1">Nome Plataforma ${platformCount}:
+              <button type="button" class="remove-platform-btn" data-remove-id="plataforma${platformCount}Container">X</button>
+            </label>
+            <input type="text" id="plataforma${platformCount}Nome" name="platform_name[]" class="w-full bg-black text-white border border-gray-500 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" value="" />
+        `;
+        newPlatformField.id = `plataforma${platformCount}Container`;
+
+        // Encontra o último grid dentro do container de plataformas
+        const lastGrid = plataformasContainer.querySelector('.grid');
+        if (lastGrid) {
+            lastGrid.appendChild(newPlatformField); // Adiciona ao último grid
+        } else {
+            // Fallback caso não haja grid (não deveria acontecer com o HTML atual)
+            plataformasContainer.appendChild(newPlatformField);
+        }
+        
+        // Adiciona event listener para o novo botão de remover
+        newPlatformField.querySelector('.remove-platform-btn').addEventListener('click', function() {
+            const targetId = this.getAttribute('data-remove-id');
+            const elementToRemove = document.getElementById(targetId);
+            if (elementToRemove) {
+                elementToRemove.remove();
+                // Opcional: Poderíamos reajustar platformCount se necessário, mas para simples adição/remoção não é crítico.
+            }
+        });
+    });
+    
+    // Delegação de eventos para botões de remover (caso o usuário queira remover os iniciais também)
+    // Isso pode ser expandido se necessário, mas os campos iniciais não têm botão de remover.
+
     generateButton.addEventListener('click', () => {
-        const numeroMetodo = numeroMetodoInput.value.trim(); // Pega o valor do novo input
+        const numeroMetodo = numeroMetodoInput.value.trim();
         const referenteA = referenteAInput.value.trim();
         const plataformaMetodo = plataformaMetodoInput.value.trim();
         const investimentoValor = investimentoValorInput.value.trim();
@@ -146,13 +213,10 @@
         const timeB = timeBInput.value.trim();
         const dataJogo = dataJogoInput.value.trim();
         const horaJogo = horaJogoInput.value.trim();
-        const plataformaUmNome = plataformaUmNomeInput.value.trim();
-        const plataformaDoisNome = plataformaDoisNomeInput.value.trim();
-
-        // Inclui o número do método na mensagem
+        
         let message = `MÉTODO ${numeroMetodo} - Referente a ${referenteA} - ${plataformaMetodo}\n\n` +
                       `💵 Investimento: R$ ${investimentoValor}\n` +
-                      `🤑 Lucro: R$ ${lucroValor}`; // Emoji do Lucro alterado
+                      `🤑 Lucro: R$ ${lucroValor}`; 
 
         if (chanceDuploCheckbox.checked) {
             message += `\n\nCHANCE DE DUPLO PROS DOIS LADOS 😍`;
@@ -168,11 +232,18 @@
         message += `\n\nJogo Utilizado:\n` + 
                    `${timeA} x ${timeB}\n` +
                    `${dataJogo} ás ${horaJogo}\n\n` +
-                   `Plataformas utilizadas:\n` +
-                   `${plataformaUmNome}.bet.br\n` +
-                   `${plataformaDoisNome}.bet.br`;
+                   `Plataformas utilizadas:\n`;
 
-        generatedMessageTextarea.value = message;
+        // Coleta nomes de todas as plataformas
+        const platformInputs = document.querySelectorAll('input[name="platform_name[]"]');
+        platformInputs.forEach(input => {
+            const platformName = input.value.trim();
+            if (platformName) {
+                message += `${platformName}.bet.br\n`;
+            }
+        });
+
+        generatedMessageTextarea.value = message.trim(); // trim() no final para remover possível linha extra
         outputArea.classList.remove('hidden');
         generatedMessageTextarea.style.height = 'auto';
         generatedMessageTextarea.style.height = (generatedMessageTextarea.scrollHeight) + 'px';
