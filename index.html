@@ -165,122 +165,121 @@
   </div>
 
   <script>
-    // Elementos do DOM
-    const generateButton = document.getElementById('generateButton');
-    const copyButton = document.getElementById('copyButton');
-    const generatedMessageTextarea = document.getElementById('generatedMessage');
-    const outputArea = document.getElementById('outputArea');
-    const copyNotification = document.getElementById('copyNotification');
+    document.addEventListener('DOMContentLoaded', () => {
+        const generateButton = document.getElementById('generateButton');
+        const copyButton = document.getElementById('copyButton');
+        const generatedMessageTextarea = document.getElementById('generatedMessage');
+        const outputArea = document.getElementById('outputArea');
+        const copyNotification = document.getElementById('copyNotification');
 
-    // Inputs
-    const numeroMetodoInput = document.getElementById('numeroMetodo');
-    const referenteAInput = document.getElementById('referenteA');
-    const plataformaMetodoInput = document.getElementById('plataformaMetodo');
-    const investimentoValorInput = document.getElementById('investimentoValor');
-    const lucroValorInput = document.getElementById('lucroValor');
-    const timeAInput = document.getElementById('timeA');
-    const timeBInput = document.getElementById('timeB');
-    const dataJogoInput = document.getElementById('dataJogo');
-    const horaJogoInput = document.getElementById('horaJogo');
-    
-    // Plataformas
-    const plataformasContainer = document.getElementById('plataformasContainer');
-    const addPlatformBtn = document.getElementById('addPlatformBtn');
-    const platformFieldsGrid = document.getElementById('platformFieldsGrid'); 
-    let platformCount = 2; 
-
-    const chanceDuploCheckbox = document.getElementById('chanceDuplo');
-    const adicionarAtencaoCheckbox = document.getElementById('adicionarAtencao');
-    const atencaoMensagemContainer = document.getElementById('atencaoMensagemContainer');
-    const atencaoMensagemTextarea = document.getElementById('atencaoMensagem');
-
-    adicionarAtencaoCheckbox.addEventListener('change', () => {
-        atencaoMensagemContainer.classList.toggle('hidden', !adicionarAtencaoCheckbox.checked);
-    });
-
-    addPlatformBtn.addEventListener('click', () => {
-        platformCount++;
-        const newPlatformFieldContainer = document.createElement('div'); 
-        newPlatformFieldContainer.id = `plataforma${platformCount}Container`;
+        const numeroMetodoInput = document.getElementById('numeroMetodo');
+        const referenteAInput = document.getElementById('referenteA');
+        const plataformaMetodoInput = document.getElementById('plataformaMetodo');
+        const investimentoValorInput = document.getElementById('investimentoValor');
+        const lucroValorInput = document.getElementById('lucroValor');
+        const timeAInput = document.getElementById('timeA');
+        const timeBInput = document.getElementById('timeB');
+        const dataJogoInput = document.getElementById('dataJogo');
+        const horaJogoInput = document.getElementById('horaJogo');
         
-        newPlatformFieldContainer.innerHTML = `
-            <label for="plataforma${platformCount}Nome" class="form-label">Nome Plataforma ${platformCount}:</label>
-            <div class="flex items-center">
-                <input type="text" id="plataforma${platformCount}Nome" name="platform_name[]" class="form-input" value="" />
-                <button type="button" class="btn-remove ml-2" data-remove-id="plataforma${platformCount}Container">X</button>
-            </div>
-        `;
-        
-        platformFieldsGrid.appendChild(newPlatformFieldContainer); 
-        
-        newPlatformFieldContainer.querySelector('.btn-remove').addEventListener('click', function() {
-            const targetId = this.getAttribute('data-remove-id');
-            const elementToRemove = document.getElementById(targetId);
-            if (elementToRemove) {
-                elementToRemove.remove();
-            }
-        });
-    });
-    
-    generateButton.addEventListener('click', () => {
-        const numeroMetodo = numeroMetodoInput.value.trim();
-        const referenteA = referenteAInput.value.trim();
-        const plataformaMetodo = plataformaMetodoInput.value.trim();
-        const investimentoValor = investimentoValorInput.value.trim();
-        const lucroValor = lucroValorInput.value.trim();
-        const timeA = timeAInput.value.trim();
-        const timeB = timeBInput.value.trim();
-        const dataJogo = dataJogoInput.value.trim();
-        const horaJogo = horaJogoInput.value.trim();
-        
-        let messageParts = []; 
+        const plataformasContainer = document.getElementById('plataformasContainer');
+        const addPlatformBtn = document.getElementById('addPlatformBtn');
+        const platformFieldsGrid = document.getElementById('platformFieldsGrid'); 
+        let platformCount = 2; 
 
-        messageParts.push(`MÉTODO ${numeroMetodo} - Referente a ${referenteA} - ${plataformaMetodo} 🏛️\n\n`); 
-        messageParts.push(`💵 Investimento: R$ ${investimentoValor}\n`);  
-        messageParts.push(`🤑 Lucro: R$ ${lucroValor}`); 
+        const chanceDuploCheckbox = document.getElementById('chanceDuplo');
+        const adicionarAtencaoCheckbox = document.getElementById('adicionarAtencao');
+        const atencaoMensagemContainer = document.getElementById('atencaoMensagemContainer');
+        const atencaoMensagemTextarea = document.getElementById('atencaoMensagem');
 
-        if (chanceDuploCheckbox.checked) {
-            messageParts.push(`\n\nCHANCE DE DUPLO PROS DOIS LADOS 🤩`);
-        }
-
-        if (adicionarAtencaoCheckbox.checked) {
-            const atencaoTxt = atencaoMensagemTextarea.value.trim();
-            if (atencaoTxt) {
-                messageParts.push(`\n\n⚠️ ${atencaoTxt} ⚠️`); 
-            }
-        }
-        
-        messageParts.push(`\n\nJogo utilizado:\n${timeA} x ${timeB}\n${dataJogo} ás ${horaJogo}\n\n`); 
-        messageParts.push(`Plataformas que utilizaremos:\n`); 
-
-        const platformInputs = document.querySelectorAll('input[name="platform_name[]"]');
-        platformInputs.forEach(input => {
-            const platformName = input.value.trim();
-            if (platformName) {
-                messageParts.push(`${platformName}.bet.br\n`); 
-            }
+        adicionarAtencaoCheckbox.addEventListener('change', () => {
+            atencaoMensagemContainer.classList.toggle('hidden', !adicionarAtencaoCheckbox.checked);
         });
 
-        generatedMessageTextarea.value = messageParts.join('').trim(); 
-        outputArea.classList.remove('hidden');
-        generatedMessageTextarea.style.height = 'auto';
-        generatedMessageTextarea.style.height = (generatedMessageTextarea.scrollHeight) + 'px';
-    });
+        addPlatformBtn.addEventListener('click', () => {
+            platformCount++;
+            const newPlatformFieldContainer = document.createElement('div'); 
+            newPlatformFieldContainer.id = `plataforma${platformCount}Container`;
+            
+            newPlatformFieldContainer.innerHTML = `
+                <label for="plataforma${platformCount}Nome" class="form-label">Nome Plataforma ${platformCount}:</label>
+                <div class="flex items-center">
+                    <input type="text" id="plataforma${platformCount}Nome" name="platform_name[]" class="form-input" value="" />
+                    <button type="button" class="btn-remove ml-2" data-remove-id="plataforma${platformCount}Container">X</button>
+                </div>
+            `;
+            
+            platformFieldsGrid.appendChild(newPlatformFieldContainer); 
+            
+            newPlatformFieldContainer.querySelector('.btn-remove').addEventListener('click', function() {
+                const targetId = this.getAttribute('data-remove-id');
+                const elementToRemove = document.getElementById(targetId);
+                if (elementToRemove) {
+                    elementToRemove.remove();
+                }
+            });
+        });
+    
+        generateButton.addEventListener('click', () => {
+            const numeroMetodo = numeroMetodoInput.value.trim();
+            const referenteA = referenteAInput.value.trim();
+            const plataformaMetodo = plataformaMetodoInput.value.trim();
+            const investimentoValor = investimentoValorInput.value.trim();
+            const lucroValor = lucroValorInput.value.trim();
+            const timeA = timeAInput.value.trim();
+            const timeB = timeBInput.value.trim();
+            const dataJogo = dataJogoInput.value.trim();
+            const horaJogo = horaJogoInput.value.trim();
+            
+            let messageParts = []; 
 
-    copyButton.addEventListener('click', () => {
-        generatedMessageTextarea.select();
-        generatedMessageTextarea.setSelectionRange(0, 99999); 
-        try {
-            const successful = document.execCommand('copy');
-            if (successful) {
-                copyNotification.classList.remove('opacity-0');
-                setTimeout(() => copyNotification.classList.add('opacity-0'), 2000);
-            } else {
-                console.error('Falha ao copiar texto com document.execCommand.');
+            messageParts.push(`MÉTODO ${numeroMetodo} - Referente a ${referenteA} - ${plataformaMetodo} 🏦\n\n`); 
+            messageParts.push(`💵 Investimento: R$ ${investimentoValor}\n`);  
+            messageParts.push(`🤑 Lucro: R$ ${lucroValor}`); 
+
+            if (chanceDuploCheckbox.checked) {
+                messageParts.push(`\n\nCHANCE DE DUPLO PROS DOIS LADOS 🤩`);
             }
-        } catch (err) {
-            console.error('Erro ao tentar copiar com document.execCommand:', err);
-        }
+
+            if (adicionarAtencaoCheckbox.checked) {
+                const atencaoTxt = atencaoMensagemTextarea.value.trim();
+                if (atencaoTxt) {
+                    messageParts.push(`\n\n⚠️ ${atencaoTxt} ⚠️`); 
+                }
+            }
+            
+            messageParts.push(`\n\nJogo utilizado:\n${timeA} x ${timeB}\n${dataJogo} ás ${horaJogo}\n\n`); 
+            messageParts.push(`Plataformas que utilizaremos:\n`); 
+
+            const platformInputs = document.querySelectorAll('input[name="platform_name[]"]');
+            platformInputs.forEach(input => {
+                const platformName = input.value.trim();
+                if (platformName) {
+                    messageParts.push(`${platformName}.bet.br\n`); 
+                }
+            });
+
+            generatedMessageTextarea.value = messageParts.join('').trim(); 
+            outputArea.classList.remove('hidden');
+            generatedMessageTextarea.style.height = 'auto';
+            generatedMessageTextarea.style.height = (generatedMessageTextarea.scrollHeight) + 'px';
+        });
+
+        copyButton.addEventListener('click', () => {
+            generatedMessageTextarea.select();
+            generatedMessageTextarea.setSelectionRange(0, 99999); 
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    copyNotification.classList.remove('opacity-0');
+                    setTimeout(() => copyNotification.classList.add('opacity-0'), 2000);
+                } else {
+                    console.error('Falha ao copiar texto com document.execCommand.');
+                }
+            } catch (err) {
+                console.error('Erro ao tentar copiar com document.execCommand:', err);
+            }
+        });
     });
   </script>
 </body>
