@@ -22,9 +22,8 @@
       @apply block text-sm font-medium text-neutral-300 mb-1.5;
     }
     .title-main {
-      /* Tamanho aumentado e brilho intensificado */
       @apply text-orange-400 mb-8 text-center;
-      font-size: 0.7cm; /* Tamanho da fonte aumentado explicitamente */
+      font-size: 0.7cm;
       font-weight: 700;
       text-shadow: 0 0 20px rgba(251, 146, 60, 0.5), 0 0 35px rgba(251, 146, 60, 0.3);
     }
@@ -60,18 +59,18 @@
     <!-- Detalhes do Método -->
     <section class="form-section">
       <h2 class="title-section">Detalhes do Método</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-3"> 
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3"> 
         <div>
           <label for="numeroMetodo" class="form-label">Número do Método:</label>
-          <input type="text" id="numeroMetodo" class="form-input" value="000" />
+          <input type="text" id="numeroMetodo" class="form-input" value="" placeholder="Ex: 124" />
         </div>
         <div>
-          <label for="referenteA" class="form-label">Referente a:</label>
-          <input type="text" id="referenteA" class="form-input" value="PROMOÇÃO" />
+          <label for="referenteA" class="form-label">Título (Ex: Conversão):</label>
+          <input type="text" id="referenteA" class="form-input" value="" placeholder="Ex: CONVERSÃO" />
         </div>
-        <div>
-          <label for="plataformaMetodo" class="form-label">Plataforma do Método:</label>
-          <input type="text" id="plataformaMetodo" class="form-input" value="BET365" />
+        <div class="md:col-span-2">
+          <label for="plataformaPrincipal" class="form-label">Plataforma Principal (do Título):</label>
+          <input type="text" id="plataformaPrincipal" class="form-input" value="" placeholder="Ex: ESTRELABET" />
         </div>
       </div>
     </section>
@@ -82,32 +81,27 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
         <div>
           <label for="investimentoValor" class="form-label">Investimento (R$):</label>
-          <input type="text" id="investimentoValor" class="form-input" value="00,00" />
+          <input type="text" id="investimentoValor" class="form-input" value="" placeholder="Ex: 108,00" />
         </div>
-        <div>
+        <div id="bonus-container" class="hidden">
+          <label for="bonusValor" class="form-label">Bônus/Freebet (R$):</label>
+          <input type="text" id="bonusValor" class="form-input" value="" placeholder="Ex: 30,00" />
+        </div>
+        <div class="md:col-span-2">
           <label for="lucroValor" class="form-label">Lucro (R$):</label>
-          <input type="text" id="lucroValor" class="form-input" value="00,00" />
+          <input type="text" id="lucroValor" class="form-input" value="" placeholder="Ex: 12,09" />
+        </div>
+         <div class="md:col-span-2">
+          <label for="percaNota" class="form-label">Nota do Lucro (opcional):</label>
+          <input type="text" id="percaNota" class="form-input" value="" placeholder="Ex: Contando com a perca" />
+        </div>
+        <div class="md:col-span-2">
+            <label class="checkbox-label">
+                <input type="checkbox" id="addBonusCheckbox" class="checkbox-input" />
+                Adicionar Bônus/Freebet
+            </label>
         </div>
       </div>
-    </section>
-
-    <!-- Opções -->
-    <section class="form-section">
-        <h2 class="title-section">Opções Adicionais</h2>
-        <div class="space-y-3">
-            <label class="checkbox-label">
-                <input type="checkbox" id="chanceDuplo" class="checkbox-input" />
-                Chance de duplo pros dois lados
-            </label>
-            <label class="checkbox-label">
-                <input type="checkbox" id="adicionarAtencao" class="checkbox-input" />
-                Adicionar mensagem de Atenção
-            </label>
-            <div id="atencaoMensagemContainer" class="hidden pt-2">
-                <label for="atencaoMensagem" class="form-label">Mensagem de Atenção:</label>
-                <textarea id="atencaoMensagem" rows="2" class="form-input" placeholder="Digite sua mensagem de atenção aqui..."></textarea>
-            </div>
-        </div>
     </section>
 
     <!-- Jogo utilizado -->
@@ -116,19 +110,19 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
             <div>
                 <label for="timeA" class="form-label">Time/Evento A:</label>
-                <input type="text" id="timeA" class="form-input" value="Equador" />
+                <input type="text" id="timeA" class="form-input" value="" placeholder="Ex: INTER" />
             </div>
             <div>
                 <label for="timeB" class="form-label">Time/Evento B:</label>
-                <input type="text" id="timeB" class="form-input" value="Brasil" />
+                <input type="text" id="timeB" class="form-input" value="" placeholder="Ex: FLUMINENSE" />
             </div>
             <div>
-                <label for="dataJogo" class="form-label">Data do Jogo (DD/MM):</label>
-                <input type="text" id="dataJogo" class="form-input" value="05/06" />
+                <label for="dataJogo" class="form-label">Data do Jogo (DD/MM/AAAA):</label>
+                <input type="text" id="dataJogo" class="form-input" value="" placeholder="Ex: 30/06/2025" />
             </div>
             <div>
                 <label for="horaJogo" class="form-label">Hora do Jogo (HH:MM):</label>
-                <input type="text" id="horaJogo" class="form-input" value="20:00" />
+                <input type="text" id="horaJogo" class="form-input" value="" placeholder="Ex: 16:00" />
             </div>
         </div>
     </section>
@@ -139,16 +133,27 @@
         <h2 class="title-section !mb-0">Plataformas que utilizaremos</h2> 
         <button type="button" id="addPlatformBtn" class="btn-add">+</button>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3" id="platformFieldsGrid"> 
-        <div>
-          <label for="plataformaUmNome" class="form-label">Nome Plataforma 1 (Ex: bet365):</label>
-          <input type="text" id="plataformaUmNome" name="platform_name[]" class="form-input" value="bet365" />
+      <div class="space-y-4" id="platformFieldsGrid"> 
+        <div class="platform-entry grid grid-cols-3 gap-2 items-center">
+          <input type="text" name="platform_name" class="form-input col-span-2" value="" placeholder="Nome da Plataforma">
+          <input type="text" name="platform_value" class="form-input" value="" placeholder="Valor (Ex: 30,00🎁)">
         </div>
-        <div>
-          <label for="plataformaDoisNome" class="form-label">Nome Plataforma 2 (Ex: brasildasorte):</label>
-          <input type="text" id="plataformaDoisNome" name="platform_name[]" class="form-input" value="brasildasorte" />
+        <div class="platform-entry grid grid-cols-3 gap-2 items-center">
+          <input type="text" name="platform_name" class="form-input col-span-2" value="" placeholder="Nome da Plataforma">
+          <input type="text" name="platform_value" class="form-input" value="" placeholder="Valor">
         </div>
       </div>
+    </section>
+    
+    <!-- Opções Adicionais -->
+    <section class="form-section">
+        <h2 class="title-section">Opções Adicionais</h2>
+        <div class="space-y-3">
+            <label class="checkbox-label">
+                <input type="checkbox" id="chanceDuplo" class="checkbox-input" checked/>
+                Chance de duplo green
+            </label>
+        </div>
     </section>
 
     <!-- Botão -->
@@ -159,7 +164,7 @@
     <!-- Mensagem Gerada -->
     <div id="outputArea" class="mt-8 hidden form-section !bg-neutral-900"> 
       <h2 class="text-xl font-bold text-orange-400 mb-3 text-center">Mensagem Gerada:</h2> 
-      <textarea id="generatedMessage" rows="10" class="w-full bg-neutral-800 text-neutral-200 border border-neutral-700 px-3 py-2.5 rounded-lg" readonly></textarea>
+      <textarea id="generatedMessage" rows="12" class="w-full bg-neutral-800 text-neutral-200 border border-neutral-700 px-3 py-2.5 rounded-lg" readonly></textarea>
        <div class="mt-4 flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-3">
           <span id="copyNotification" class="text-emerald-400 text-sm opacity-0 transition-opacity duration-300 order-first sm:order-last">Copiado! ✔️</span>
           <button id="copyButton" class="btn-secondary-action w-full sm:w-auto">Copiar Mensagem</button>
@@ -177,92 +182,100 @@
 
         const numeroMetodoInput = document.getElementById('numeroMetodo');
         const referenteAInput = document.getElementById('referenteA');
-        const plataformaMetodoInput = document.getElementById('plataformaMetodo');
+        const plataformaPrincipalInput = document.getElementById('plataformaPrincipal');
         const investimentoValorInput = document.getElementById('investimentoValor');
+        const bonusValorInput = document.getElementById('bonusValor');
         const lucroValorInput = document.getElementById('lucroValor');
+        const percaNotaInput = document.getElementById('percaNota');
         const timeAInput = document.getElementById('timeA');
         const timeBInput = document.getElementById('timeB');
         const dataJogoInput = document.getElementById('dataJogo');
         const horaJogoInput = document.getElementById('horaJogo');
         
-        const plataformasContainer = document.getElementById('plataformasContainer');
         const addPlatformBtn = document.getElementById('addPlatformBtn');
         const platformFieldsGrid = document.getElementById('platformFieldsGrid'); 
-        let platformCount = 2; 
-
+        
         const chanceDuploCheckbox = document.getElementById('chanceDuplo');
-        const adicionarAtencaoCheckbox = document.getElementById('adicionarAtencao');
-        const atencaoMensagemContainer = document.getElementById('atencaoMensagemContainer');
-        const atencaoMensagemTextarea = document.getElementById('atencaoMensagem');
+        const addBonusCheckbox = document.getElementById('addBonusCheckbox');
+        const bonusContainer = document.getElementById('bonus-container');
 
-        adicionarAtencaoCheckbox.addEventListener('change', () => {
-            atencaoMensagemContainer.classList.toggle('hidden', !adicionarAtencaoCheckbox.checked);
+        addBonusCheckbox.addEventListener('change', () => {
+            bonusContainer.classList.toggle('hidden', !addBonusCheckbox.checked);
         });
 
         addPlatformBtn.addEventListener('click', () => {
-            platformCount++;
-            const newPlatformFieldContainer = document.createElement('div'); 
-            newPlatformFieldContainer.id = `plataforma${platformCount}Container`;
-            
-            newPlatformFieldContainer.innerHTML = `
-                <label for="plataforma${platformCount}Nome" class="form-label">Nome Plataforma ${platformCount}:</label>
-                <div class="flex items-center">
-                    <input type="text" id="plataforma${platformCount}Nome" name="platform_name[]" class="form-input" value="" />
-                    <button type="button" class="btn-remove ml-2" data-remove-id="plataforma${platformCount}Container">X</button>
-                </div>
+            const newPlatformEntry = document.createElement('div');
+            newPlatformEntry.className = 'platform-entry grid grid-cols-3 gap-2 items-center';
+            newPlatformEntry.innerHTML = `
+                <input type="text" name="platform_name" class="form-input col-span-2" placeholder="Nome da Plataforma">
+                <input type="text" name="platform_value" class="form-input" placeholder="Valor">
             `;
-            
-            platformFieldsGrid.appendChild(newPlatformFieldContainer); 
-            
-            newPlatformFieldContainer.querySelector('.btn-remove').addEventListener('click', function() {
-                const targetId = this.getAttribute('data-remove-id');
-                const elementToRemove = document.getElementById(targetId);
-                if (elementToRemove) {
-                    elementToRemove.remove();
-                }
-            });
+            platformFieldsGrid.appendChild(newPlatformEntry);
         });
     
         generateButton.addEventListener('click', () => {
-            const numeroMetodo = numeroMetodoInput.value.trim();
-            const referenteA = referenteAInput.value.trim();
-            const plataformaMetodo = plataformaMetodoInput.value.trim();
-            const investimentoValor = investimentoValorInput.value.trim();
-            const lucroValor = lucroValorInput.value.trim();
-            const timeA = timeAInput.value.trim();
-            const timeB = timeBInput.value.trim();
-            const dataJogo = dataJogoInput.value.trim();
-            const horaJogo = horaJogoInput.value.trim();
+            let messageParts = [];
+
+            // Linha 1
+            messageParts.push(`👀 MÉTODO ${numeroMetodoInput.value.trim()}`);
             
-            let messageParts = []; 
+            // Linha 2 - Espaçamento extra
+            messageParts.push('');
+            
+            // Linha 3
+            messageParts.push(`🏦${referenteAInput.value.trim().toUpperCase()} - ${plataformaPrincipalInput.value.trim().toUpperCase()} 🏦`);
+            
+            // Linha 4 (vazia)
+            messageParts.push('');
 
-            messageParts.push(`MÉTODO ${numeroMetodo} - Referente a ${referenteA} - ${plataformaMetodo} 🏦\n\n`); 
-            messageParts.push(`💵 Investimento: R$ ${investimentoValor}\n`);  
-            messageParts.push(`🤑 Lucro: R$ ${lucroValor}`); 
+            // Linha 5 (Investimento)
+            let investimentoString = `Investimento: Aproximadamente R$${investimentoValorInput.value.trim()}`;
+            if (addBonusCheckbox.checked && bonusValorInput.value.trim()) {
+                investimentoString += ` + R$ ${bonusValorInput.value.trim()}🎁`;
+            }
+            messageParts.push(investimentoString);
+            
+            // Linha 6
+            const percaNota = percaNotaInput.value.trim();
+            let lucroString = `Lucro: R$${lucroValorInput.value.trim()}`;
+            if (percaNota) {
+                lucroString += ` (${percaNota})`;
+            }
+            messageParts.push(lucroString);
 
+            // Linha 7 (Chance de duplo)
             if (chanceDuploCheckbox.checked) {
-                messageParts.push(`\n\nCHANCE DE DUPLO PROS DOIS LADOS 🤩`);
-            }
-
-            if (adicionarAtencaoCheckbox.checked) {
-                const atencaoTxt = atencaoMensagemTextarea.value.trim();
-                if (atencaoTxt) {
-                    messageParts.push(`\n\n⚠️ ${atencaoTxt} ⚠️`); 
-                }
+                messageParts.push(`😍 Chance de duplo green.`);
             }
             
-            messageParts.push(`\n\nJogo utilizado:\n${timeA} x ${timeB}\n${dataJogo} ás ${horaJogo}\n\n`); 
-            messageParts.push(`Plataformas que utilizaremos:\n`); 
+            // Linha 8 (vazia)
+            messageParts.push('');
+            
+            // Linha 9
+            messageParts.push(`➡️ Plataformas utilizadas:`);
+            messageParts.push('');
 
-            const platformInputs = document.querySelectorAll('input[name="platform_name[]"]');
-            platformInputs.forEach(input => {
-                const platformName = input.value.trim();
-                if (platformName) {
-                    messageParts.push(`${platformName}.bet.br\n`); 
+            // Plataformas
+            const platformEntries = document.querySelectorAll('.platform-entry');
+            platformEntries.forEach(entry => {
+                const name = entry.querySelector('input[name="platform_name"]').value.trim().toUpperCase();
+                const value = entry.querySelector('input[name="platform_value"]').value.trim();
+                if (name && value) {
+                    messageParts.push(`🏦${name} - R$ ${value}`);
                 }
             });
 
-            generatedMessageTextarea.value = messageParts.join('').trim(); 
+            // Linha vazia
+            messageParts.push('');
+
+            // Jogo
+            messageParts.push(`UTILIZAREMOS O JOGO ENTRE`); // Emoji removido
+            messageParts.push('');
+            messageParts.push(`${timeAInput.value.trim().toUpperCase()} X ${timeBInput.value.trim().toUpperCase()}`);
+            messageParts.push('');
+            messageParts.push(`🗓 ${dataJogoInput.value.trim()} ÀS ${horaJogoInput.value.trim()} HORAS`);
+
+            generatedMessageTextarea.value = messageParts.join('\n'); 
             outputArea.classList.remove('hidden');
             generatedMessageTextarea.style.height = 'auto';
             generatedMessageTextarea.style.height = (generatedMessageTextarea.scrollHeight) + 'px';
