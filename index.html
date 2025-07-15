@@ -11,66 +11,76 @@
       font-family: 'Montserrat', sans-serif;
     }
     .form-section {
-      background-color: rgba(45, 45, 45, 0.7); 
-      @apply p-5 rounded-xl shadow-lg;
+      background-color: rgba(23, 23, 23, 0.6); /* neutral-900 com 60% de opacidade */
+      backdrop-filter: blur(8px);
+      @apply p-10 sm:p-16 rounded-2xl shadow-2xl border border-neutral-800;
     }
     .form-input {
-      background-color: rgba(30, 30, 30, 0.8); 
-      @apply w-full text-neutral-200 border border-neutral-700 px-3 py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 placeholder-neutral-500;
+      background-color: rgba(30, 30, 30, 0.9); 
+      @apply w-full text-neutral-200 border border-neutral-700 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 placeholder-neutral-500 transition-all duration-300;
     }
     .form-label {
-      @apply block text-sm font-medium text-neutral-300 mb-1.5;
+      @apply block text-sm font-medium text-neutral-300 mb-2;
     }
     .title-main {
-      @apply text-orange-400 mb-8 text-center;
-      font-size: 0.7cm;
+      @apply text-orange-400 mb-10 text-center text-4xl;
       font-weight: 700;
-      text-shadow: 0 0 20px rgba(251, 146, 60, 0.5), 0 0 35px rgba(251, 146, 60, 0.3);
+      text-shadow: 0 0 15px rgba(251, 146, 60, 0.4), 0 0 25px rgba(251, 146, 60, 0.2);
     }
     .title-section {
-      @apply text-xl text-sky-400 mb-4;
-      font-weight: 700 !important;
+      @apply text-2xl text-sky-400 mb-8 pb-3 border-b border-sky-500/20;
+      font-weight: 600 !important;
     }
     .btn-primary-action {
-      @apply bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-3 rounded-lg shadow-md transition-transform transform hover:scale-105 text-base;
+      @apply bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold px-10 py-3.5 rounded-lg shadow-lg hover:shadow-orange-500/30 transition-all duration-300 ease-in-out transform hover:scale-105 text-base;
     }
     .btn-secondary-action {
-      @apply bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-2.5 rounded-lg shadow-sm text-sm transition-transform transform hover:scale-105;
+      @apply bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white font-semibold px-6 py-2.5 rounded-lg shadow-md hover:shadow-emerald-500/30 text-sm transition-all duration-300 ease-in-out transform hover:scale-105;
     }
     .btn-add {
-      @apply bg-sky-500 hover:bg-sky-600 text-white font-bold px-3.5 py-1.5 rounded-lg text-sm shadow-sm;
+      @apply bg-sky-500 hover:bg-sky-600 text-white font-bold w-8 h-8 flex items-center justify-center rounded-full text-lg shadow-md transition-transform transform hover:scale-110;
     }
     .btn-remove {
-      @apply bg-red-600 hover:bg-red-700 text-white px-2.5 py-1 text-xs rounded-md shadow-sm;
+      @apply bg-red-600 hover:bg-red-700 text-white font-bold w-8 h-8 flex items-center justify-center rounded-full text-lg shadow-md transition-transform transform hover:scale-110;
     }
     .checkbox-label {
-        @apply flex items-center text-neutral-300 text-sm;
+        @apply flex items-center text-neutral-300 text-sm select-none cursor-pointer;
     }
     .checkbox-input {
-        @apply mr-2.5 h-4 w-4 rounded border-neutral-600 bg-neutral-700 text-orange-500 focus:ring-orange-500 focus:ring-offset-neutral-800;
+        @apply mr-3 h-4 w-4 rounded border-neutral-600 bg-neutral-800 text-orange-500 focus:ring-orange-500 focus:ring-offset-neutral-900;
     }
   </style>
 </head>
-<body class="bg-gradient-to-b from-slate-900 to-black text-neutral-200 p-4 sm:p-6 min-h-screen flex items-center justify-center">
-  <div class="max-w-2xl w-full mx-auto space-y-6">
+<body class="bg-gradient-to-br from-gray-900 via-black to-gray-900 text-neutral-200 p-6 sm:p-8 min-h-screen flex items-center justify-center">
+  <div class="max-w-4xl w-full mx-auto space-y-8">
 
     <h1 class="title-main">WLS MÉTODOS</h1>
 
     <!-- Detalhes do Método -->
     <section class="form-section">
       <h2 class="title-section">Detalhes do Método</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3"> 
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 items-end"> 
         <div>
           <label for="numeroMetodo" class="form-label">Número do Método:</label>
-          <input type="text" id="numeroMetodo" class="form-input" value="" placeholder="Ex: 124" />
+          <input type="text" id="numeroMetodo" class="form-input" placeholder="Ex: 088" />
         </div>
         <div>
-          <label for="referenteA" class="form-label">Título (Ex: Conversão):</label>
-          <input type="text" id="referenteA" class="form-input" value="" placeholder="Ex: CONVERSÃO" />
+          <label for="referenteA" class="form-label">Título:</label>
+          <input type="text" id="referenteA" class="form-input" placeholder="Ex: Referente ao..." />
         </div>
         <div class="md:col-span-2">
           <label for="plataformaPrincipal" class="form-label">Plataforma Principal (do Título):</label>
-          <input type="text" id="plataformaPrincipal" class="form-input" value="" placeholder="Ex: ESTRELABET" />
+          <input type="text" id="plataformaPrincipal" class="form-input" placeholder="Ex: " />
+        </div>
+        <div id="nota-adicional-container" class="hidden md:col-span-2">
+            <label for="notaAdicionalInput" class="form-label">Nota Adicional:</label>
+            <input type="text" id="notaAdicionalInput" class="form-input" placeholder="Ex: VAI PAGAR 5 FREEBET..." />
+        </div>
+        <div class="md:col-span-2 mt-4">
+            <label class="checkbox-label">
+                <input type="checkbox" id="addNotaAdicionalCheckbox" class="checkbox-input" />
+                Adicionar Nota Adicional (com 🚨)
+            </label>
         </div>
       </div>
     </section>
@@ -78,94 +88,91 @@
     <!-- Valores -->
     <section class="form-section">
       <h2 class="title-section">Valores</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 items-end">
         <div>
           <label for="investimentoValor" class="form-label">Investimento (R$):</label>
-          <input type="text" id="investimentoValor" class="form-input" value="" placeholder="Ex: 108,00" />
+          <input type="text" id="investimentoValor" class="form-input" placeholder="Ex: 24,00" />
         </div>
         <div id="bonus-container" class="hidden">
-          <label for="bonusValor" class="form-label">Bônus/Freebet (R$):</label>
-          <input type="text" id="bonusValor" class="form-input" value="" placeholder="Ex: 30,00" />
+          <label for="bonusValor" class="form-label">Freebet (R$):</label>
+          <input type="text" id="bonusValor" class="form-input" placeholder="Ex: 10,00" />
         </div>
         <div class="md:col-span-2">
           <label for="lucroValor" class="form-label">Lucro (R$):</label>
-          <input type="text" id="lucroValor" class="form-input" value="" placeholder="Ex: 12,09" />
+          <input type="text" id="lucroValor" class="form-input" placeholder="Ex: 6,17" />
         </div>
-         <div class="md:col-span-2">
-          <label for="percaNota" class="form-label">Nota do Lucro (opcional):</label>
-          <input type="text" id="percaNota" class="form-input" value="" placeholder="Ex: Contando com a perca" />
+        <div id="perca-controlada-container" class="hidden md:col-span-2">
+            <label for="percaControladaValor" class="form-label">Perca Controlada (-R$):</label>
+            <input type="text" id="percaControladaValor" class="form-input" placeholder="Ex: 16,00" />
         </div>
-        <div class="md:col-span-2">
+        <div class="md:col-span-2 flex flex-col space-y-3 mt-4">
             <label class="checkbox-label">
                 <input type="checkbox" id="addBonusCheckbox" class="checkbox-input" />
-                Adicionar Bônus/Freebet
+                Adicionar Freebet ao Investimento
+            </label>
+            <label class="checkbox-label">
+                <input type="checkbox" id="addPercaControladaCheckbox" class="checkbox-input" />
+                Adicionar Perca Controlada
             </label>
         </div>
       </div>
     </section>
 
+    <!-- Opções Adicionais -->
+    <section class="form-section">
+        <h2 class="title-section">Opção Adicional</h2>
+        <div class="space-y-3">
+            <label class="checkbox-label">
+                <input type="checkbox" id="chanceDuplo" class="checkbox-input" />
+                Incluir "Chance de duplo green"
+            </label>
+        </div>
+    </section>
+
     <!-- Jogo utilizado -->
     <section class="form-section"> 
-        <h2 class="title-section">Jogo utilizado</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
+        <h2 class="title-section">Jogo Utilizado</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 items-end">
             <div>
                 <label for="timeA" class="form-label">Time/Evento A:</label>
-                <input type="text" id="timeA" class="form-input" value="" placeholder="Ex: INTER" />
+                <input type="text" id="timeA" class="form-input" placeholder="Ex: Central Córdoba" />
             </div>
             <div>
                 <label for="timeB" class="form-label">Time/Evento B:</label>
-                <input type="text" id="timeB" class="form-input" value="" placeholder="Ex: FLUMINENSE" />
+                <input type="text" id="timeB" class="form-input" placeholder="Ex: Cerro Largo FC" />
             </div>
             <div>
-                <label for="dataJogo" class="form-label">Data do Jogo (DD/MM/AAAA):</label>
-                <input type="text" id="dataJogo" class="form-input" value="" placeholder="Ex: 30/06/2025" />
+                <label for="dataJogo" class="form-label">Data do Jogo (DIA/MÊS):</label>
+                <input type="text" id="dataJogo" class="form-input" placeholder="Ex: 15/07" />
             </div>
             <div>
                 <label for="horaJogo" class="form-label">Hora do Jogo (HH:MM):</label>
-                <input type="text" id="horaJogo" class="form-input" value="" placeholder="Ex: 16:00" />
+                <input type="text" id="horaJogo" class="form-input" placeholder="Ex: 19:00" />
             </div>
         </div>
     </section>
 
     <!-- Plataformas que utilizaremos -->
     <section class="form-section" id="plataformasContainer">
-      <div class="flex items-center justify-between mb-3">
-        <h2 class="title-section !mb-0">Plataformas que utilizaremos</h2> 
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="title-section !mb-0 !pb-0 !border-none">Plataformas Utilizadas</h2> 
         <button type="button" id="addPlatformBtn" class="btn-add">+</button>
       </div>
-      <div class="space-y-4" id="platformFieldsGrid"> 
-        <div class="platform-entry grid grid-cols-3 gap-2 items-center">
-          <input type="text" name="platform_name" class="form-input col-span-2" value="" placeholder="Nome da Plataforma">
-          <input type="text" name="platform_value" class="form-input" value="" placeholder="Valor (Ex: 30,00🎁)">
-        </div>
-        <div class="platform-entry grid grid-cols-3 gap-2 items-center">
-          <input type="text" name="platform_name" class="form-input col-span-2" value="" placeholder="Nome da Plataforma">
-          <input type="text" name="platform_value" class="form-input" value="" placeholder="Valor">
-        </div>
+      <div class="space-y-4 mt-6" id="platformFieldsGrid"> 
+        <!-- Entradas de plataforma serão adicionadas aqui -->
       </div>
     </section>
     
-    <!-- Opções Adicionais -->
-    <section class="form-section">
-        <h2 class="title-section">Opções Adicionais</h2>
-        <div class="space-y-3">
-            <label class="checkbox-label">
-                <input type="checkbox" id="chanceDuplo" class="checkbox-input" checked/>
-                Chance de duplo green
-            </label>
-        </div>
-    </section>
-
     <!-- Botão -->
-    <div class="mt-8 text-center">
+    <div class="mt-10 text-center">
       <button id="generateButton" class="btn-primary-action">Gerar Mensagem</button>
     </div>
 
     <!-- Mensagem Gerada -->
-    <div id="outputArea" class="mt-8 hidden form-section !bg-neutral-900"> 
-      <h2 class="text-xl font-bold text-orange-400 mb-3 text-center">Mensagem Gerada:</h2> 
-      <textarea id="generatedMessage" rows="12" class="w-full bg-neutral-800 text-neutral-200 border border-neutral-700 px-3 py-2.5 rounded-lg" readonly></textarea>
-       <div class="mt-4 flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-3">
+    <div id="outputArea" class="mt-10 hidden form-section !bg-neutral-900/80"> 
+      <h2 class="text-xl font-bold text-orange-400 mb-4 text-center">Mensagem Gerada:</h2> 
+      <textarea id="generatedMessage" rows="12" class="w-full bg-neutral-800/80 text-neutral-200 border border-neutral-700 px-4 py-3 rounded-lg focus:outline-none focus:ring-1 focus:ring-emerald-500" readonly></textarea>
+        <div class="mt-5 flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-4">
           <span id="copyNotification" class="text-emerald-400 text-sm opacity-0 transition-opacity duration-300 order-first sm:order-last">Copiado! ✔️</span>
           <button id="copyButton" class="btn-secondary-action w-full sm:w-auto">Copiar Mensagem</button>
       </div>
@@ -174,6 +181,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // --- Seletores de Elementos ---
         const generateButton = document.getElementById('generateButton');
         const copyButton = document.getElementById('copyButton');
         const generatedMessageTextarea = document.getElementById('generatedMessage');
@@ -183,10 +191,13 @@
         const numeroMetodoInput = document.getElementById('numeroMetodo');
         const referenteAInput = document.getElementById('referenteA');
         const plataformaPrincipalInput = document.getElementById('plataformaPrincipal');
+        const notaAdicionalInput = document.getElementById('notaAdicionalInput');
+        
         const investimentoValorInput = document.getElementById('investimentoValor');
         const bonusValorInput = document.getElementById('bonusValor');
         const lucroValorInput = document.getElementById('lucroValor');
-        const percaNotaInput = document.getElementById('percaNota');
+        const percaControladaValorInput = document.getElementById('percaControladaValor');
+        
         const timeAInput = document.getElementById('timeA');
         const timeBInput = document.getElementById('timeB');
         const dataJogoInput = document.getElementById('dataJogo');
@@ -195,86 +206,111 @@
         const addPlatformBtn = document.getElementById('addPlatformBtn');
         const platformFieldsGrid = document.getElementById('platformFieldsGrid'); 
         
-        const chanceDuploCheckbox = document.getElementById('chanceDuplo');
+        const addNotaAdicionalCheckbox = document.getElementById('addNotaAdicionalCheckbox');
         const addBonusCheckbox = document.getElementById('addBonusCheckbox');
+        const addPercaControladaCheckbox = document.getElementById('addPercaControladaCheckbox');
+        const chanceDuploCheckbox = document.getElementById('chanceDuplo');
+        
+        const notaAdicionalContainer = document.getElementById('nota-adicional-container');
         const bonusContainer = document.getElementById('bonus-container');
+        const percaControladaContainer = document.getElementById('perca-controlada-container');
+
+        // --- Funções ---
+        const addPlatform = () => {
+            const platformId = `platform-${Date.now()}`;
+            const newPlatformEntry = document.createElement('div');
+            newPlatformEntry.className = 'platform-entry grid grid-cols-12 gap-3 items-center';
+            newPlatformEntry.id = platformId;
+            
+            newPlatformEntry.innerHTML = `
+                <div class="col-span-7">
+                    <input type="text" name="platform_name" class="form-input" placeholder="Nome da Plataforma">
+                </div>
+                <div class="col-span-4">
+                    <input type="text" name="platform_value" class="form-input" placeholder="Valor a utilizar">
+                </div>
+                <div class="col-span-1 flex justify-end">
+                    <button type="button" data-remove-id="${platformId}" class="btn-remove">-</button>
+                </div>
+            `;
+            platformFieldsGrid.appendChild(newPlatformEntry);
+
+            newPlatformEntry.querySelector('.btn-remove').addEventListener('click', (e) => {
+                const idToRemove = e.currentTarget.getAttribute('data-remove-id');
+                document.getElementById(idToRemove).remove();
+            });
+        };
+
+        // --- Event Listeners ---
+        addNotaAdicionalCheckbox.addEventListener('change', () => {
+            notaAdicionalContainer.classList.toggle('hidden', !addNotaAdicionalCheckbox.checked);
+        });
 
         addBonusCheckbox.addEventListener('change', () => {
             bonusContainer.classList.toggle('hidden', !addBonusCheckbox.checked);
         });
 
-        addPlatformBtn.addEventListener('click', () => {
-            const newPlatformEntry = document.createElement('div');
-            newPlatformEntry.className = 'platform-entry grid grid-cols-3 gap-2 items-center';
-            newPlatformEntry.innerHTML = `
-                <input type="text" name="platform_name" class="form-input col-span-2" placeholder="Nome da Plataforma">
-                <input type="text" name="platform_value" class="form-input" placeholder="Valor">
-            `;
-            platformFieldsGrid.appendChild(newPlatformEntry);
+        addPercaControladaCheckbox.addEventListener('change', () => {
+            percaControladaContainer.classList.toggle('hidden', !addPercaControladaCheckbox.checked);
         });
+
+        addPlatformBtn.addEventListener('click', addPlatform);
     
         generateButton.addEventListener('click', () => {
             let messageParts = [];
 
-            // Linha 1
+            // Bloco 1: Título do Método
             messageParts.push(`👀 MÉTODO ${numeroMetodoInput.value.trim()}`);
-            
-            // Linha 2 - Espaçamento extra
             messageParts.push('');
             
-            // Linha 3
-            messageParts.push(`🏦${referenteAInput.value.trim().toUpperCase()} - ${plataformaPrincipalInput.value.trim().toUpperCase()} 🏦`);
-            
-            // Linha 4 (vazia)
+            let referenteA = referenteAInput.value.trim().toUpperCase();
+            let plataformaPrincipal = plataformaPrincipalInput.value.trim().toUpperCase();
+            let titleLine = `🏦 ${referenteA}`;
+            if (plataformaPrincipal) {
+                titleLine += ` ${plataformaPrincipal} 🏦`;
+            }
+            messageParts.push(titleLine);
+
+            if (addNotaAdicionalCheckbox.checked && notaAdicionalInput.value.trim()) {
+                messageParts.push(`🚨 ${notaAdicionalInput.value.trim().toUpperCase()} 🚨`);
+            }
             messageParts.push('');
 
-            // Linha 5 (Investimento)
-            let investimentoString = `Investimento: Aproximadamente R$${investimentoValorInput.value.trim()}`;
+            // Bloco 2: Valores
+            let investimentoString = `💸 Investimento: Aproximadamente R$${investimentoValorInput.value.trim()}`;
             if (addBonusCheckbox.checked && bonusValorInput.value.trim()) {
-                investimentoString += ` + R$ ${bonusValorInput.value.trim()}🎁`;
+                investimentoString += ` + ${bonusValorInput.value.trim()} DE FREEBET🎁`;
             }
             messageParts.push(investimentoString);
             
-            // Linha 6
-            const percaNota = percaNotaInput.value.trim();
-            let lucroString = `Lucro: R$${lucroValorInput.value.trim()}`;
-            if (percaNota) {
-                lucroString += ` (${percaNota})`;
-            }
-            messageParts.push(lucroString);
+            messageParts.push(`💰 Lucro: R$${lucroValorInput.value.trim()}`);
 
-            // Linha 7 (Chance de duplo)
+            if (addPercaControladaCheckbox.checked && percaControladaValorInput.value.trim()) {
+                messageParts.push(`Perca controlada: -R$${percaControladaValorInput.value.trim()}`);
+            }
+
             if (chanceDuploCheckbox.checked) {
                 messageParts.push(`😍 Chance de duplo green.`);
             }
             
-            // Linha 8 (vazia)
+            // Bloco 3: Plataformas
             messageParts.push('');
-            
-            // Linha 9
-            messageParts.push(`➡️ Plataformas utilizadas:`);
-            messageParts.push('');
-
-            // Plataformas
+            messageParts.push(`➡️ Plataformas que utilizaremos:`);
             const platformEntries = document.querySelectorAll('.platform-entry');
             platformEntries.forEach(entry => {
                 const name = entry.querySelector('input[name="platform_name"]').value.trim().toUpperCase();
                 const value = entry.querySelector('input[name="platform_value"]').value.trim();
                 if (name && value) {
-                    messageParts.push(`🏦${name} - R$ ${value}`);
+                    messageParts.push(`🏦 ${name} - Utilizará R$ ${value} 📦`);
                 }
             });
 
-            // Linha vazia
-            messageParts.push('');
-
-            // Jogo
-            messageParts.push(`UTILIZAREMOS O JOGO ENTRE`); // Emoji removido
+            // Bloco 4: Jogo
             messageParts.push('');
             messageParts.push(`${timeAInput.value.trim().toUpperCase()} X ${timeBInput.value.trim().toUpperCase()}`);
-            messageParts.push('');
-            messageParts.push(`🗓 ${dataJogoInput.value.trim()} ÀS ${horaJogoInput.value.trim()} HORAS`);
+            messageParts.push(`${dataJogoInput.value.trim()}, ${horaJogoInput.value.trim()}`);
 
+            // --- Renderização Final ---
             generatedMessageTextarea.value = messageParts.join('\n'); 
             outputArea.classList.remove('hidden');
             generatedMessageTextarea.style.height = 'auto';
@@ -296,6 +332,10 @@
                 console.error('Erro ao tentar copiar com document.execCommand:', err);
             }
         });
+
+        // --- Inicialização ---
+        addPlatform(); // Adiciona a primeira plataforma ao carregar
+        addPlatform(); // Adiciona a segunda plataforma ao carregar
     });
   </script>
 </body>
